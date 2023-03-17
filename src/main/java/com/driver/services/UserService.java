@@ -35,21 +35,16 @@ public class UserService {
             return;
         }
 
-        for (Blog blog : user.getBlogList()) {
-//            for(Image image : blog.getImageList()){
-//                image.setBlog(null);
-//                blog.getImageList().remove(image);
-//            }
-            blog.getImageList().clear();
-            blogRepository.save(blog);
-        }
-
-        user.getBlogList().clear();
-
-        userRepository3.save(user);
+//        for (Blog blog : user.getBlogList()) {
+//            blog.getImageList().clear();
+//            user.getBlogList().remove(blog);
+//            blog.setUser(user);
+//            blogRepository.save(blog);
+//        }
+//
+//        userRepository3.save(user);
 
         userRepository3.deleteById(userId);
-
     }
 
     public User updateUser(Integer id, String password) {
