@@ -36,7 +36,12 @@ public class UserService {
         }
 
         for (Blog blog : user.getBlogList()) {
+//            for(Image image : blog.getImageList()){
+//                image.setBlog(null);
+//                blog.getImageList().remove(image);
+//            }
             blog.getImageList().clear();
+            blogRepository.save(blog);
         }
 
         user.getBlogList().clear();

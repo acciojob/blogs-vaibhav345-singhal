@@ -21,19 +21,27 @@ public class BlogService {
     @Autowired
     UserRepository userRepository1;
 
+    @Autowired
+    ImageRepository imageRepository;
+
     public Blog createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
-        Date d = new Date();
-        User user = userRepository1.findById(userId).get();
-
+        User user;
+        try {
+            user = userRepository1.findById(userId).get();
+        } catch (Exception e) {
+            return null;
+        }
+// set blog fields
         Blog blog = new Blog();
         blog.setContent(content);
-        blog.setPubDate(d);
         blog.setTitle(title);
         blog.setUser(user);
 
+        // updated user blog list
         user.getBlogList().add(blog);
 
+        //save parnet user
         userRepository1.save(user);
 
         return blog;
@@ -56,6 +64,8 @@ public class BlogService {
         user.getBlogList().remove(blog);
 
         userRepository1.save(user);
+
+        blogRepository1.save(blog);
 
         blogRepository1.deleteById(blogId);
     }
