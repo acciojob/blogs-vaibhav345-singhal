@@ -67,17 +67,18 @@ public class ImageService {
 
         String dimension = image.getDimensions();
 
-        System.out.println(dimension);
+//        System.out.println(dimension);
 
         int height = Integer.parseInt(dimension.split("X")[0]);
         int width = Integer.parseInt(dimension.split(("X"))[1]);
 
-        System.out.println("my dim :  " + height + "  " + width);
+//        System.out.println("my dim :  " + height + "  " + width);
 
         int screenHeight = Integer.parseInt(screenDimensions.split("X")[0]);
         int screenWidth = Integer.parseInt(screenDimensions.split("X")[1]);
 
-        System.out.println("given dim :  " + screenHeight + "  " + screenWidth);
+//        System.out.println("given dim :  " + screenHeight + "  " + screenWidth);
+        if (height > screenHeight || width > screenWidth) return 0;
 
         int imageArea = height * width;
         int screenArea = screenHeight * screenWidth;
