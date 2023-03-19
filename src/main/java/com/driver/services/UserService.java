@@ -22,43 +22,26 @@ public class UserService {
     ImageRepository imageRepository;
 
     public User createUser(String username, String password) {
-        User user = new User(username, password, "test", "test");
+        User user = new User();
+        user.setPassword(password);
+        user.setFirstName("test");
+        user.setLastName("test");
+        user.setUsername(username);
         userRepository3.save(user);
         return user;
     }
 
     public void deleteUser(int userId) {
-        User user;
-        try {
-            user = userRepository3.findById(userId).get();
-        } catch (Exception e) {
-            return;
-        }
-
-//        for (Blog blog : user.getBlogList()) {
-//            blog.getImageList().clear();
-//            user.getBlogList().remove(blog);
-//            blog.setUser(user);
-//            blogRepository.save(blog);
-//        }
-//
-//        userRepository3.save(user);
-
         userRepository3.deleteById(userId);
     }
 
     public User updateUser(Integer id, String password) {
-        User user;
-        try {
-            user = userRepository3.findById(id).get();
-        } catch (Exception e) {
-            return null;
-        }
+        User user = userRepository3.findById(id).get();
+
         user.setPassword(password);
 
-        for (Blog blog : user.getBlogList()) {
-            blog.setUser(user);
-        }
-        return userRepository3.save(user);
+        userRepository3.save(user);
+
+        return user;
     }
 }
