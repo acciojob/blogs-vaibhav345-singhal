@@ -61,6 +61,6 @@ public class BlogService {
             blog.getImageList().remove(image);
         }
 
-        blogRepository1.deleteById(blogId);
+        blogRepository1.delete(blog);
     }
 }
