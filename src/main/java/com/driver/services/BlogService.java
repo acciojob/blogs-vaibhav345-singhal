@@ -27,40 +27,19 @@ public class BlogService {
     public Blog createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
 
+        User user = userRepository1.findById(userId).get();
         Blog blog = new Blog();
-
-        User user = null;
-
-        try {
-            user = userRepository1.findById(userId).get();
-        } catch (Exception e) {
-            return blog;
-        }
-
         blog.setUser(user);
         blog.setTitle(title);
         blog.setContent(content);
-
-        user.getBlogList().add(blog);
+        blog.setPubDate(new Date());
         userRepository1.save(user);
-
+        user.getBlogList().add(blog);
         return blog;
     }
 
     public void deleteBlog(int blogId) {
         //delete blog and corresponding images
-        Blog blog = null;
-        try {
-            blog = blogRepository1.findById(blogId).get();
-        } catch (Exception e) {
-            return;
-        }
-
-        for (Image image : blog.getImageList()) {
-            imageRepository.deleteById(image.getId());
-            blog.getImageList().remove(image);
-        }
-
-        blogRepository1.delete(blog);
+        blogRepository1.deleteById(blogId);
     }
 }

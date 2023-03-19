@@ -43,18 +43,19 @@ public class ImageService {
 
         String dimension = image.getDimensions();
 
-        int height = Integer.parseInt(dimension.split("X")[0]);
-        int width = Integer.parseInt(dimension.split(("X"))[1]);
+        String[] imageDim = dimension.split("X");
 
-        int screenHeight = Integer.parseInt(screenDimensions.split("X")[0]);
-        int screenWidth = Integer.parseInt(screenDimensions.split("X")[1]);
+        int height = Integer.parseInt(imageDim[0]);
+        int width = Integer.parseInt(imageDim[1]);
 
-        if (height > screenHeight || width > screenWidth) return 0;
+        String[] scrDim = screenDimensions.split("X");
 
-        int imageArea = height * width;
-        int screenArea = screenHeight * screenWidth;
+        int screenHeight = Integer.parseInt(scrDim[0]);
+        int screenWidth = Integer.parseInt(scrDim[1]);
 
-        int ans = screenArea / imageArea;
-        return ans;
+        int imgA = screenHeight / height;
+        int imgB = screenWidth / width;
+
+        return imgA * imgB;
     }
 }
